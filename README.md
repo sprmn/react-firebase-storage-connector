@@ -4,7 +4,7 @@ Gives a cached download URL of a firebase storage reference as a prop to your co
 ## Usage
 ### Step 1
 Make sure you have initialized firebase somewhere in your app using:
-```
+``` javascript
 import firebase from 'firebase';
 
 const config = {
@@ -17,7 +17,7 @@ firebase.initializeApp(config);
 ```
 ### Step 2
 Connect your component:
-```
+``` javascript
 import React from 'react';
 import firebase from 'firebase';
 import { connect } from 'react-firebase-storage-connector';
