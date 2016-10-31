@@ -19,49 +19,41 @@ const connect = (mapStorageToProps) => {
 				this.obtainDownloadURLs(next);
 			}
 
-			getURLFromCache = (mapping, prop) => {
-				if (mapping[prop]) {
-					const fullPath = mapping[prop].fullPath;
-					const cachedURL = cache[fullPath];
-					return cachedURL;
-				}
-			}
-
-			getURLFromFirebase = async (mapping, prop) => {
-				if (mapping[prop]) {
-					try {
-						const downloadURL = await mapping[prop].getDownloadURL();
-						return downloadURL;
-					}
-					catch (error) {
-						console.log(error);
-					}
-				}
-			}
-
-			obtainDownloadURLs = async (props, options = {}) => {
+			obtainDownloadURLs = (props, options = {}) => {
 				const {cacheOnly, firebaseOnly} = options;
 				const mapping = mapStorageToProps(props);
 				const keys = Object.keys(mapping);
-				for (let i = keys.length - 1; i >= 0; --i) {
-					const prop = keys[i];
-					let url;
-					if (!firebaseOnly) {
-						url = this.getURLFromCache(mapping, prop);
+				const newState = {}; // Holds the updated state
+
+				Promise.all(keys.map(prop => {
+					// Only obtain URL if mapping is defined
+					if (!mapping[prop]) {
+						return null;
 					}
-					if (!url && !cacheOnly) {
-						url = await this.getURLFromFirebase(mapping, prop);
-						// Update cache
+					const fullPath = mapping[prop].fullPath;
+
+					if (!firebaseOnly) {
+						const url = cache[fullPath];
 						if (url) {
-							const fullPath = mapping[prop].fullPath;
-							cache[fullPath] = url;
+							// Add url to new state
+							newState[prop] = url;
+							return url;
 						}
 					}
-					// Update state
-					const newState = {};
-					newState[prop] = url;
-					this.setState(newState);
-				}
+
+					if (!cacheOnly) {
+						return mapping[prop].getDownloadURL()
+							.then((url) => {
+								// Save url in cache and new state
+								newState[prop] = cache[fullPath] = url;
+								return url;
+							});
+					}
+
+					return null;
+				}))
+					.then(() => this.setState(newState))
+					.catch(console.error);
 			}
 
 			render() {
