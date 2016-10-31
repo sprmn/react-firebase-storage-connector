@@ -1,0 +1,24 @@
+{
+  "name": "react-firebase-storage-connector",
+  "version": "1.0.0",
+  "description": "Connect any component to give it a firebase download url as prop",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sprmn/react-firebase-storage-connector.git"
+  },
+  "keywords": [
+    "react",
+    "firebase",
+    "storage"
+  ],
+  "author": "Frank van der Hoek <frank.vanderhoek@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sprmn/react-firebase-storage-connector/issues"
+  },
+  "homepage": "https://github.com/sprmn/react-firebase-storage-connector#readme"
+}
