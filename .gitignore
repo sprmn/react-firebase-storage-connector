@@ -45,3 +45,6 @@ jspm_packages
 
 # Babel Output
 /lib/
+
+# OSX
+.DS_Store

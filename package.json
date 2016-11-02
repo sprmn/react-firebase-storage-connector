@@ -1,18 +1,11 @@
 {
   "name": "react-firebase-storage-connector",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Connect any component to give it a firebase download url as prop",
   "main": "lib/index.js",
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir lib",
     "prepublish": "npm run build"
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "es2015",
-      "stage-2"
-    ]
   },
   "repository": {
     "type": "git",
