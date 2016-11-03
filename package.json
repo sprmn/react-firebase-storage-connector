@@ -1,6 +1,6 @@
 {
   "name": "react-firebase-storage-connector",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Connect any component to give it a firebase download url as prop",
   "main": "lib/index.js",
   "scripts": {

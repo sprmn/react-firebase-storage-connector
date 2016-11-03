@@ -72,6 +72,19 @@ export default function connect(mapStorageToProps: (props: Object) => Object) {
   };
 }
 
+const ImageFromStorage = connect(props => ({
+  src: props.storageRef,
+}))((innerprops: { as?: any, src: string, storageRef: Object, alt?: string }) => {
+  const { as, alt, ...imgProps } = innerprops;
+  delete imgProps.storageRef;
+  if (as) {
+    const Image = as;
+    return <Image alt={alt} {...imgProps} />;
+  }
+  return <img alt={alt} {...imgProps} />;
+});
+
 export {
   connect,
+  ImageFromStorage,
 };
